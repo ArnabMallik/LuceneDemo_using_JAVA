@@ -1,0 +1,75 @@
+<h1 id="unstructured-data">Unstructured Data</h1>
+<h1 id="assignment-1---developer">Assignment 1 - Developer</h1>
+<h1 id="due-1-february-2019-1155pm">Due: 1 February 2019 11:55pm</h1>
+<h2 id="goal">Goal</h2>
+<p>The goal of this assignment is to create, use, and modify a simple information retrieval system using Lucene. This will help you begin to understand how search engines work, and how documents and queries can be represented for information retrieval tasks. These representations will be valuable later as we discuss other tasks, including classification, clustering, and topic modeling.</p>
+<h2 id="details">Details</h2>
+<p>This assignment is to be done individually. You may discuss the project with your classmates, but the work you turn in should be your own.</p>
+<p>Lucene is an open source project from Apache that consists of a set of Java classes that can easily be assembled to create a search engine that can be modified and customized. Note that Lucene has been ported to other languages. You may use a language other than Java, but no support from the instructors will be available for any language other than Java.</p>
+<p>The Java API is available online and can be very helpful: <a href="https://lucene.apache.org/core/7_2_0/index.html" class="uri">https://lucene.apache.org/core/7_2_0/index.html</a></p>
+<h2 id="setup">Setup</h2>
+<ol style="list-style-type: decimal">
+<li>If you are on a Mac, ensure that you have command line tools installed by running <code>xcode-select --install</code> in a terminal window.</li>
+<li>Make sure you have Java JDK 8 installed. This assignment was tested with java version <code>1.8.0_45</code>. (Check by executing the command <code>java -version</code> in a terminal window.) You should see something like <code>java version &quot;1.8.0_45&quot;    Java(TM) SE Runtime Environment (build 1.8.0_45-b14)    Java HotSpot(TM) 64-Bit Server VM (build 25.45-b02, mixed mode)</code> <strong>We do not recommend Java 9 and have seen it cause problems.</strong> Java can be downloaded at <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" class="uri">https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a>.</li>
+<li>In a unix-like environment, you can use <code>. setclasspath.sh</code> while in your assignment directory to set your classpath; Windows users may need to use a different approach but can use <code>setclasspath.sh</code> as a reference. If you are familiar with a Java IDE, you may use that.</li>
+<li>Compile the provided <code>MyStandardAnalyzer.java</code>, <code>MyIndexFiles.java</code>, and <code>MySearchFiles.java</code> sources. They have been copied directly from the Lucene demos: <a href="https://lucene.apache.org/core/7_2_0/demo/overview-summary.html" class="uri">https://lucene.apache.org/core/7_2_0/demo/overview-summary.html</a> and produce identical results.
+<ol style="list-style-type: lower-alpha">
+<li>To run the original indexing demo: <code>java org.apache.lucene.demo.IndexFiles -docs documents/</code></li>
+<li>To run the original query demo: <code>java org.apache.lucene.demo.SearchFiles</code></li>
+<li>To run our version of the indexing demo: <code>java MyIndexFiles -docs documents/</code></li>
+<li>To run our version of the query demo: <code>java MySearchFiles</code></li>
+</ol></li>
+</ol>
+<h1 id="questions">Questions:</h1>
+<p>You will need to refer to the Lucene API <a href="http://lucene.apache.org/core/7_2_0/" class="uri">http://lucene.apache.org/core/7_2_0/</a> and/or the Lucene source code <a href="https://github.com/apache/lucene-solr/tree/master/lucene" class="uri">https://github.com/apache/lucene-solr/tree/master/lucene</a> to answer some of these questions. You will also need to examine the documents we provided to develop appropriate queries to answer some of these questions.</p>
+<h2 id="the-lucene-demo-20">The Lucene Demo (20)</h2>
+<ol style="list-style-type: decimal">
+<li>Submit the following queries to the Lucene 7.2.0 demo and paste the results.
+<ol style="list-style-type: lower-alpha">
+<li>his fiery sword</li>
+<li>ALAS O LOVE</li>
+<li>and</li>
+<li>reckon</li>
+<li>love</li>
+<li>fair</li>
+</ol></li>
+<li>Does the Lucene 7.2.0 demo use stopwords? Explain in one or two sentences how this can be deduced from the results of the queries above.</li>
+<li>Does the Lucene 7.2.0 demo do stemming? If so, what stemmer does it use? Explain in one or two sentences how this can be deduced from the results of the queries above.</li>
+<li>What is the default similarity metric used by the Lucene 7.2.0 demo? Can this be deduced from the results of the above queries? If so, explain how.</li>
+</ol>
+<h2 id="modifying-the-demo">Modifying the Demo</h2>
+<p>In the three sections below, you will modify the provided code in the provided <code>MyStandardAnalyzer.java</code>, <code>MyIndexFiles.java</code>, and <code>MySearchFiles.java</code> sources to change how Lucene processes documents and queries. Rather than starting &quot;from scratch&quot; in each section, make changes to your files incrementally; e.g., after you have made modifications affecting stopping, keep those modifications as you make further modifications affecting stemming and similarity. You should submit one set of files that includes all modifications.</p>
+<p>Hint: When you modify files, it may be necessary to re-index your documents after compiling your sources in order to see those changes reflected at query time.</p>
+<h3 id="stopping-20">Stopping (20)</h3>
+<p>Modify the provided <code>.java</code> files to use a custom stopword list that consists of (only) the following words: <code>&quot;about&quot;, &quot;dost&quot;, &quot;from&quot;, &quot;hath&quot;, &quot;his&quot;, &quot;O&quot;, &quot;that&quot;, &quot;the&quot;, &quot;thou&quot;</code> Hint: Test your stop words thoroughly. <strong>Comment your code clearly to identify where you have made changes.</strong></p>
+<p>Run the following queries using your modified demo and paste in the results:</p>
+<pre><code>a. his fiery sword
+b. ALAS O LOVE
+c. and
+d. reckon
+e. love
+f. fair</code></pre>
+<h3 id="stemming-30">Stemming (30)</h3>
+<p>Modify your version of the demo to use the Porter stemmer. Hint: The <code>PorterStemFilter</code> class implements Porter stemming. <strong>Comment your code clearly to identify where you have made changes.</strong></p>
+<p>Run the following queries using your modified demo and paste in the results:</p>
+<pre><code>a. his fiery sword
+b. ALAS O LOVE
+c. and
+d. reckon
+e. love
+f. fair</code></pre>
+<h3 id="similarity-30">Similarity (30)</h3>
+<p>Modify your version of the demo to use TFIDF similarity. Hint: The <code>ClassicSimilarity</code> class implements TFIDF scoring. <strong>Comment your code clearly to identify where you have made changes.</strong></p>
+<p>Run the following queries using your modified demo and paste in the results:</p>
+<pre><code>a. his fiery sword
+b. ALAS O LOVE
+c. and
+d. reckon
+e. love
+f. fair</code></pre>
+<h2 id="deliverables">Deliverables</h2>
+<p><strong>Submissions will only be accepted through OWL.</strong></p>
+<ol style="list-style-type: decimal">
+<li>Submit your answers to all questions on OWL in the provided text box. You should probably write your answers in your own word processor/text editor, and then copy and paste them into OWL when you are ready to submit.</li>
+<li>Submit your three <code>.java</code> files, <code>MyIndexFiles.java</code>, <code>MySearchFiles.java</code>, and <code>MyStandardAnalyzer.java</code>, as attachments through OWL. (Some of the files may not need modification but submit all three.)</li>
+</ol>
